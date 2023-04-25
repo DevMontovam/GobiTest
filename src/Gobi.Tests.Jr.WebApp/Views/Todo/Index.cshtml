@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Gobi.Test.Jr.Domain.TodoItem>
+@{
+	ViewData["Title"] = "Home Page";	
+}
+<style>
+	.table-custom tr.completed-false td.completed span {
+		background-color: #cd4444;
+	}
+	
+	.table-custom tr.completed-true td.completed span {
+		background-color: #15c03a;
+	}
+	
+	.table-custom tr td.completed span {
+		color: white;
+		text-align: center;
+		vertical-align: middle;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #666;
+		border-radius: 20px;
+		padding: 4px 12px;
+	}
+		.table-custom {
+		box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+	}
+		body {
+		background-image: url("background-image.jpg");
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.completed
+	{
+		display: flex;
+    	justify-content: space-around;
+	}
+	.table-custom tr td.completed {
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	}
+	.table-custom td.completed {
+		font-size: 14px;
+	}
+	.table-custom tr td.completed span {
+		background-color: #cd4444;
+		border-radius: 20px;
+		padding: 4px 12px;
+	}
+
+	.table-custom tr.completed-true td.completed span {
+		background-color: #15c03a;
+	}
+	
+</style>
+<div class="container">
+
+	<div class="mt-5 mb-5">
+		<a asp-action="Add" class="btn btn-primary">
+			Add ToDo
+		</a>
+	</div>
+	<table class="table table-bordered table-custom">
+		<thead class="thead-dark">
+			<tr>
+				<th class="text-center">Finalizada</th>
+				<th>Tarefa</th>
+				<th>Opções</th>
+			</tr>
+		</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr class="@(item.Completed ? "completed-true" : "completed-false")">
+						<td class="completed"><span>@((item.Completed) ? "Finalizado" : "Não Finalizado")</span></td>
+						<td>@item.Description</td>
+						<td>
+							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm me-2" title="Editar">Editar</a>
+							<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+	</table>
+	
+</div>
